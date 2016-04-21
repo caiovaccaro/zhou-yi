@@ -4,13 +4,15 @@ const app = require('express')(),
   http = require('http').Server(app),
   io = require('socket.io')(http),
   db = require('./db/db'),
-  _ = require('lodash')
+  _ = require('lodash'),
+  port = process.env.PORT || 3000
 
+app.set('port', port)
 app.set('view engine', 'pug')
 app.set('views', './client')
 app.get('/', (req, res) => { res.render('index', { db: db }) })
 
-http.listen(3000, () => { console.log('Up on 3000') })
+http.listen(port, () => { console.log('Up on ' + port) })
 
 io.on('connection', (socket) => {
   socket.on('change', (request) => {
