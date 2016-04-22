@@ -26,13 +26,13 @@ function whatIsBestForMultiples(request, db) {
 
 function combineMultiples(param, results) {
   return _.reduce(results[param], (sum, result) => {
-    return combineOne(_.flatten([sum, result]))
+    return combineOne([sum, result])
   })
 }
 
 function combineOne(results) {
-  let intersection = _.intersection(results),
-    concat = _.concat(results)
+  let intersection = _.intersection.apply(null, results),
+    concat = _.concat.apply(null, results)
 
   return intersection.length ? intersection : _.compact(concat)
 }
@@ -43,7 +43,9 @@ function whatIsBestForAll(params, db) {
     bestFrameworksFor = []
 
     for(let i = 0; i < params.length; i++) {
-      let bestFor = whatIsBestFor(params[i].param, params[i].index, db)
+      let bestFor = params[i].index instanceof Array ?
+                      whatIsBestForMultipleIndexes(params[i].param, params[i].index, db) :
+                      whatIsBestFor(params[i].param, params[i].index, db)
 
       bestConceptsFor.push(bestFor.Concepts)
       bestApisFor.push(bestFor.APIs)
@@ -55,6 +57,26 @@ function whatIsBestForAll(params, db) {
       "APIs": combineOne(bestApisFor),
       "Frameworks": combineOne(bestFrameworksFor)
     }
+}
+
+function whatIsBestForMultipleIndexes(param, indexes, db) {
+  let bestConceptsFor = [],
+    bestApisFor = [],
+    bestFrameworksFor = []
+
+  for(let i = 0; i < indexes.length; i++) {
+    let bestFor = whatIsBestFor(param, indexes[i], db)
+
+    bestConceptsFor.push(bestFor.Concepts)
+    bestApisFor.push(bestFor.APIs)
+    bestFrameworksFor.push(bestFor.Frameworks)
+  }
+
+  return {
+    "Concepts": bestConceptsFor,
+    "APIs": bestApisFor,
+    "Frameworks": bestFrameworksFor
+  }
 }
 
 function whatIsBestFor(param, index, db) {

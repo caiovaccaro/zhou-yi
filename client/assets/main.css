@@ -69,7 +69,8 @@ label span:before {
   left: -30px;
   opacity: 0.3;
 }
-input[type="checkbox"]:checked + span:before {
+input[type="checkbox"]:checked + span:before,
+input[type="radio"]:checked + span:before {
   opacity: 1;
 }
 #response {
