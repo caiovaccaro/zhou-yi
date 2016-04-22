@@ -1,0 +1,213 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    style(type='text/css').
+      * {
+        box-sizing: border-box;
+      }
+      body, form, table, fieldset {
+        padding: 0;
+        margin: 0;
+        border: 0;
+      }
+      body {
+        font-size: 19px;
+        font-family: Arial, sans-serif;
+        background-color: black;
+        padding: 30px;
+      }
+      h3 {
+        color: white;
+        font-weight: 100;
+        padding: 60px 0 40px;
+        margin: 0;
+      }
+      table {
+        width: 100%;
+        background-color: white;
+        border-collapse: collapse;
+      }
+      table th {
+        text-align: left;
+        padding: 20px;
+        background-color: purple;
+        color: white;
+        border-bottom: 2px solid black;
+        border-right: 1px solid black;
+      }
+      table td {
+        padding: 20px;
+        border-bottom: 1px solid black;
+        border-right: 1px solid #999;
+      }
+
+  body
+    h3 Bases de comparação
+    table
+      thead
+        tr
+          th Premissas
+      tbody
+        each premise in db.premises
+          tr
+            td= premise
+    table
+      thead
+        tr
+          th Desafios
+      tbody
+        each challenge in db.challenges
+          tr
+            td= challenge
+    table
+      thead
+        tr
+          th Tempo
+      tbody
+        each time in db.time
+          tr
+            td= time
+
+    h3 O que vai ser comparado
+    table
+      thead
+        tr
+          th Conceitos
+      tbody
+        each concept in db.concepts
+          tr
+            td= concept
+    table
+      thead
+        tr
+          th APIs
+      tbody
+        each api in db.apis
+          tr
+            td= api
+    table
+      thead
+        tr
+          th Frameworks
+      tbody
+        each framework in db.frameworks
+          tr
+            td= framework
+
+    h3 Conceitos x Premissas
+    table
+      thead
+        tr
+        each premise in db.premises
+          th= premise
+      tbody
+        tr
+          each concepts in db.conceptsComparison.premises
+            td
+              - var concept = concepts.join(' ou ')
+              =concept
+
+    h3 Conceitos x Desafios
+    table
+      thead
+        tr
+        each challenge in db.challenges
+          th= challenge
+      tbody
+        tr
+          each concepts in db.conceptsComparison.challenges
+            td
+              - var concept = concepts.join(' ou ')
+              =concept
+
+    h3 Conceitos x Tempo
+    table
+      thead
+        tr
+        each time in db.time
+          th= time
+      tbody
+        tr
+          each concepts in db.conceptsComparison.time
+            td
+              - var concept = concepts.join(' ou ')
+              =concept
+
+    h3 APIs x Premissas
+    table
+      thead
+        tr
+        each premise in db.premises
+          th= premise
+      tbody
+        tr
+          each apis in db.apisComparison.premises
+            td
+              - var api = apis.join(' ou ')
+              =api
+
+    h3 APIs x Desafios
+    table
+      thead
+        tr
+        each challenge in db.challenges
+          th= challenge
+      tbody
+        tr
+          each apis in db.apisComparison.challenges
+            td
+              - var api = apis.join(' ou ')
+              =api
+
+    h3 APIs x Tempo
+    table
+      thead
+        tr
+        each time in db.time
+          th= time
+      tbody
+        tr
+          each apis in db.apisComparison.time
+            td
+              - var api = apis.join(' ou ')
+              =api
+
+    h3 Frameworks x Premissas
+    table
+      thead
+        tr
+        each premise in db.premises
+          th= premise
+      tbody
+        tr
+          each frameworks in db.frameworksComparison.premises
+            td
+              - var framework = frameworks.join(' ou ')
+              =framework
+
+    h3 Frameworks x Desafios
+    table
+      thead
+        tr
+        each challenge in db.challenges
+          th= challenge
+      tbody
+        tr
+          each frameworks in db.frameworksComparison.challenges
+            td
+              - var framework = frameworks.join(' ou ')
+              =framework
+
+    h3 Frameworks x Tempo
+    table
+      thead
+        tr
+        each time in db.time
+          th= time
+      tbody
+        tr
+          each frameworks in db.frameworksComparison.time
+            td
+              - var framework = frameworks.join(' ou ')
+              =framework

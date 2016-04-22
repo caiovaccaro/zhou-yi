@@ -1,25 +1,7 @@
 'use strict'
 
-const premises = require('./premises'),
-  time = require('./time'),
-  premisesTime = require('./premisesTime'),
-  challenges = require('./challenges'),
-  concepts = require('./concepts'),
-  apis = require('./apis'),
-  frameworks = require('./frameworks'),
-  conceptsComparison = require('./conceptsComparison'),
-  apisComparison = require('./apisComparison'),
-  frameworksComparison = require('./frameworksComparison')
+const _ = require('lodash'),
+  objects = require('./objects/objects'),
+  comparisons = require('./comparisons/comparisons')
 
-module.exports = {
-  premises,
-  time,
-  premisesTime,
-  challenges,
-  concepts,
-  apis,
-  frameworks,
-  conceptsComparison,
-  apisComparison,
-  frameworksComparison
-}
+module.exports = _.extend(objects, comparisons)

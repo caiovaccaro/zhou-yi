@@ -2,13 +2,58 @@ html
   head
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css')
     style(type='text/css').
+      * {
+        box-sizing: border-box;
+      }
+      h3 {
+        color: white;
+        font-weight: 100;
+        padding: 40px 30px;
+        margin: 0;
+      }
+      body, form, table, fieldset {
+        padding: 0;
+        margin: 0;
+        border: 0;
+      }
       body {
-        padding: 100px;
+        font-size: 19px;
+        font-family: Arial, sans-serif;
+        background-color: black;
+        margin-right: 300px;
+      }
+      label {
+        display: block;
+        cursor: pointer;
+        padding: 30px;
+        border-bottom: 1px solid white;
+        background-color: purple;
+        color: white;
+        transition: opacity .3s ease;
+        opacity: 1;
+      }
+      label:hover {
+        opacity: 0.9;
+      }
+      label:last-child {
+        border: 0;
       }
       input {
         margin-right: 10px;
+      }
+      #response {
+        background-color: white;
+        color: black;
+        position: fixed;
+        padding: 30px;
+        text-align: center;
+        top: 0;
+        right: 0;
+        width: 300px;
+        min-height: 100vh;
+        border-left: 2px solid black;
+        margin: 0;
       }
 
   body
@@ -17,7 +62,7 @@ html
         h3 Quais são os maiores desafios do seu projeto?
         each challenge, index in db.challenges
           label.pure-checkbox
-            input(type='checkbox', name="challenge", value=index)
+            input(type='checkbox', name="challenges", value=index)
             span= challenge
 
       fieldset
@@ -26,48 +71,71 @@ html
           label.pure-radio
             input(type='radio', name="time", value=index)
             span= time
+
+      fieldset
+        h3 Com quais das seguintes questões sua equipe mais se preocupa?
+        each premise, index in db.premises
+          label.pure-checkbox
+            input(type='checkbox', name="premises", value=index)
+            span= premise
+
       br
-      p#response
+    div#response Marque suas dificuldades e verei como posso ajudar...
 
-      script(src='/socket.io/socket.io.js')
-      script.
-        var socket = io(),
-          inputs = document.getElementsByTagName('input'),
-          inputsLength = inputs.length,
-          i
+    script(src='/socket.io/socket.io.js')
+    script.
+      var socket = io(),
+        inputs = document.getElementsByTagName('input'),
+        inputsLength = inputs.length,
+        allInputsEmpty = true,
+        i
 
-        socket.on('response', function(response) {
-          var conceptLine = response.Concepts.length > 1 ? "Você pode usar um desses <b>conceitos</b>: " : "O melhor <b>conceito</b> nesse caso é: ",
-            apisLine = response.APIs.length > 1 ? "Você pode usar um desses tipos de <b>API</b>: " : "O melhor tipo de <b>API</b> nesse caso é: ",
-            frameworksLine = response.Frameworks.length > 1 ? "Você pode usar um desses tipos de <b>frameworks</b>: " : "O melhor tipo de <b>framework</b> nesse caso é: ";
-            finalLine = conceptLine + response.Concepts.join(' ou ') + '. ' + apisLine + response.APIs.join(' ou ') + '. ' + frameworksLine + response.Frameworks.join(' ou ') + '.';
+      socket.on('response', function(response) {
+        var conceptLine, apisLine, frameworksLine, finalLine,
+          defaultLine = 'Marque suas dificuldades e verei como posso ajudar...',
+          errorLine = 'Parece que não inventaram ainda isso aí...';
 
-            document.getElementById('response').innerHTML = finalLine;
-        });
+        if(typeof response.Concepts === 'undefined' && allInputsEmpty) {
+          document.getElementById('response').innerHTML = defaultLine;
+          return false;
+        } else if(typeof response.Concepts === 'undefined' && !allInputsEmpty) {
+          document.getElementById('response').innerHTML = errorLine;
+          return false;
+        }
+
+        conceptLine = response.Concepts.length > 1 ? "Você pode usar um desses <b>conceitos</b>:<br>" : "O melhor <b>conceito</b> nesse caso é:<br>";
+        apisLine = response.APIs.length > 1 ? "Você pode usar um desses tipos de <b>API</b>:<br>" : "O melhor tipo de <b>API</b> nesse caso é:<br>";
+        frameworksLine = response.Frameworks.length > 1 ? "Você pode usar um desses tipos de <b>frameworks</b>:<br>" : "O melhor tipo de <b>framework</b> nesse caso é:<br>";
+        finalLine = conceptLine + response.Concepts.join(' ou ') + '.<br><br>' + apisLine + response.APIs.join(' ou ') + '.<br><br>' + frameworksLine + response.Frameworks.join(' ou ') + '.<br><br>';
+
+        document.getElementById('response').innerHTML = finalLine;
+      });
+
+      iterateInputs(function(input) {
+        input.addEventListener('change', syncRequest);
+      });
+
+      function iterateInputs(callback) {
+        for(i = 0; i < inputsLength; i++) {
+          callback(inputs[i])
+        }
+      }
+
+      function syncRequest() {
+        var request = {};
+        allInputsEmpty = true;
 
         iterateInputs(function(input) {
-          input.addEventListener('change', syncRequest);
+          if(input.checked) {
+            allInputsEmpty = false;
+            request[input.name] = request[input.name] || [];
+            request[input.name].push(input.value);
+          }
         });
 
-        function iterateInputs(callback) {
-          for(i = 0; i < inputsLength; i++) {
-            callback(inputs[i])
-          }
-        }
+        makeRequest(request);
+      }
 
-        function syncRequest() {
-          var request = {
-            time: [],
-            challenge: []
-          };
-
-          iterateInputs(function(input) {
-            if(input.checked) request[input.name].push(input.value)
-          });
-
-          makeRequest(request);
-        }
-
-        function makeRequest(request) {
-          socket.emit('change', request)
-        }
+      function makeRequest(request) {
+        socket.emit('change', request)
+      }
