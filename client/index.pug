@@ -4,6 +4,7 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='assets/reset.css')
     link(rel='stylesheet', href='assets/main.css')
+    link(href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css')
 
   body
     form.pure-form.pure-form-stacked
@@ -29,6 +30,21 @@ html
             span= premise
 
     div#response Marque suas dificuldades e verei como posso ajudar...
+    div.credits
+      | Want to see behind the scenes? Go to
+      a(href='/tables') the tables
+      | to see the data behind this.
+      br
+      br
+      br
+      | Icons made by
+      a(href='http://www.flaticon.com/authors/elegant-themes', title='Elegant Themes') Elegant Themes
+      | and
+      a(href='http://www.flaticon.com/authors/google', title='Google') Google
+      |  from
+      a(href='http://www.flaticon.com', title='Flaticon') www.flaticon.com
+      |  is licensed by
+      a(href='http://creativecommons.org/licenses/by/3.0/', title='Creative Commons BY 3.0', target='_blank') CC 3.0 BY
 
     script(src='/socket.io/socket.io.js')
     script(src='assets/client.js')

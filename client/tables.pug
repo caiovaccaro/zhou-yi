@@ -4,173 +4,53 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='assets/reset.css')
     link(rel='stylesheet', href='assets/tables.css')
+    link(href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css')  
 
   body
+    - function capitalizeFirstLetter(string) {
+    -   return string.charAt(0).toUpperCase() + string.slice(1);
+    - }
     h3 Bases de comparação
-    table
-      thead
-        tr
-          th Premissas
-      tbody
-        each premise in db.premises
+    each tableName in db.bases
+      table
+        thead
           tr
-            td= premise
-    table
-      thead
-        tr
-          th Desafios
-      tbody
-        each challenge in db.challenges
-          tr
-            td= challenge
-    table
-      thead
-        tr
-          th Tempo
-      tbody
-        each time in db.time
-          tr
-            td= time
+            - var name = capitalizeFirstLetter(tableName)
+            th= name
+        tbody
+          - var baseDatabase = db[tableName]
+          each premise in baseDatabase
+            tr
+              td= premise
 
     h3 O que vai ser comparado
-    table
-      thead
-        tr
-          th Conceitos
-      tbody
-        each concept in db.concepts
+    each tableName in db.comparisons
+      table
+        thead
           tr
-            td= concept
-    table
-      thead
-        tr
-          th APIs
-      tbody
-        each api in db.apis
-          tr
-            td= api
-    table
-      thead
-        tr
-          th Frameworks
-      tbody
-        each framework in db.frameworks
-          tr
-            td= framework
+            - var name = capitalizeFirstLetter(tableName)
+            th= name
+        tbody
+          - var comparisonDatabase = db[tableName]
+          each comparison in comparisonDatabase
+            tr
+              td= comparison
 
-    h3 Conceitos x Premissas
-    table
-      thead
-        tr
-        each premise in db.premises
-          th= premise
-      tbody
-        tr
-          each concepts in db.conceptsComparison.premises
-            td
-              - var concept = concepts.join(' ou ')
-              =concept
-
-    h3 Conceitos x Desafios
-    table
-      thead
-        tr
-        each challenge in db.challenges
-          th= challenge
-      tbody
-        tr
-          each concepts in db.conceptsComparison.challenges
-            td
-              - var concept = concepts.join(' ou ')
-              =concept
-
-    h3 Conceitos x Tempo
-    table
-      thead
-        tr
-        each time in db.time
-          th= time
-      tbody
-        tr
-          each concepts in db.conceptsComparison.time
-            td
-              - var concept = concepts.join(' ou ')
-              =concept
-
-    h3 APIs x Premissas
-    table
-      thead
-        tr
-        each premise in db.premises
-          th= premise
-      tbody
-        tr
-          each apis in db.apisComparison.premises
-            td
-              - var api = apis.join(' ou ')
-              =api
-
-    h3 APIs x Desafios
-    table
-      thead
-        tr
-        each challenge in db.challenges
-          th= challenge
-      tbody
-        tr
-          each apis in db.apisComparison.challenges
-            td
-              - var api = apis.join(' ou ')
-              =api
-
-    h3 APIs x Tempo
-    table
-      thead
-        tr
-        each time in db.time
-          th= time
-      tbody
-        tr
-          each apis in db.apisComparison.time
-            td
-              - var api = apis.join(' ou ')
-              =api
-
-    h3 Frameworks x Premissas
-    table
-      thead
-        tr
-        each premise in db.premises
-          th= premise
-      tbody
-        tr
-          each frameworks in db.frameworksComparison.premises
-            td
-              - var framework = frameworks.join(' ou ')
-              =framework
-
-    h3 Frameworks x Desafios
-    table
-      thead
-        tr
-        each challenge in db.challenges
-          th= challenge
-      tbody
-        tr
-          each frameworks in db.frameworksComparison.challenges
-            td
-              - var framework = frameworks.join(' ou ')
-              =framework
-
-    h3 Frameworks x Tempo
-    table
-      thead
-        tr
-        each time in db.time
-          th= time
-      tbody
-        tr
-          each frameworks in db.frameworksComparison.time
-            td
-              - var framework = frameworks.join(' ou ')
-              =framework
+    each parentTableName in db.comparisons
+      - var name = capitalizeFirstLetter(parentTableName)
+      each tableName in db.bases
+        - var baseName = capitalizeFirstLetter(tableName)
+        h3 #{name} x #{baseName}
+        table
+          thead
+            tr
+            - var comparisonDatabase = db[tableName]
+            each comparisonTitle in comparisonDatabase
+              th= comparisonTitle
+          tbody
+            tr
+              - var comparisonResultsDatabase = db[parentTableName + 'Comparison'][tableName]
+              each comparisonResults in comparisonResultsDatabase
+                td
+                  - var comparison = comparisonResults.join(' ou ')
+                  =comparison
