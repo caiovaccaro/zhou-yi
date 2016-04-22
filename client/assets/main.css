@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+h3 {
+  color: white;
+  font-weight: 100;
+  padding: 40px 30px;
+  margin: 0;
+  font-size: 25px;
+}
+body, form, table, fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+b {
+  font-weight: bold;
+}
+body {
+  font-size: 19px;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  margin-right: 300px;
+}
+label {
+  display: block;
+  cursor: pointer;
+  padding: 30px;
+  border-bottom: 1px solid white;
+  background-color: purple;
+  color: white;
+  transition: opacity .3s ease;
+  opacity: 1;
+}
+label:hover {
+  opacity: 0.9;
+}
+label:last-child {
+  border: 0;
+}
+input {
+  margin-right: 10px;
+}
+#response {
+  background-color: white;
+  color: black;
+  position: fixed;
+  padding: 30px;
+  text-align: center;
+  top: 0;
+  right: 0;
+  width: 300px;
+  min-height: 100vh;
+  border-left: 2px solid black;
+  margin: 0;
+}

@@ -12,7 +12,7 @@ const express = require('express'),
 app.set('port', port)
 app.set('view engine', 'pug')
 app.set('views', './client')
-app.set('static', express.static(__dirname + '/client'))
+app.use('/assets', express.static(__dirname + '/client/assets'))
 app.get('/', (req, res) => { res.render('index', { db: db }) })
 app.get('/tables', (req, res) => { res.render('tables', { db: db }) })
 
