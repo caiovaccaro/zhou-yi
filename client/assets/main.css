@@ -1,63 +1,24 @@
-* {
-  box-sizing: border-box;
-}
-body {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-}
-h3 {
-  color: white;
-  font-weight: 100;
-  padding: 40px 30px;
-  margin: 0;
-  font-size: 25px;
-}
-body, form, table, fieldset {
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-b {
-  font-weight: bold;
-}
-body {
-  font-size: 19px;
-  background: #111111; /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #111111 0%, #3B1C77 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #111111 0%,#3B1C77 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #111111 0%,#3B1C77 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111111', endColorstr='#3B1C77',GradientType=1 );
-  padding-bottom: 300px;
-}
 label {
   display: block;
   cursor: pointer;
   padding: 30px;
   border-bottom: 1px solid white;
-  background: #763cfc; /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #763cfc 0%, #544fef 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #763cfc 0%,#544fef 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #763cfc 0%,#544fef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#763cfc', endColorstr='#544fef',GradientType=1 );
-  color: white;
   transition: opacity .3s ease;
   opacity: 1;
 }
+
 label:hover {
   opacity: 0.9;
 }
+
 label:last-child {
   border: 0;
 }
-input {
-  margin-right: 10px;
-}
-input[type="checkbox"], input[type="radio"] {
-  visibility: hidden;
-}
+
 label span {
   position: relative;
 }
+
 label span:before {
   content: "";
   background-image: url('check.svg');
@@ -69,10 +30,20 @@ label span:before {
   left: -30px;
   opacity: 0.3;
 }
+
+input {
+  margin-right: 10px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  visibility: hidden;
+}
+
 input[type="checkbox"]:checked + span:before,
 input[type="radio"]:checked + span:before {
   opacity: 1;
 }
+
 #response {
   background-color: white;
   color: black;
@@ -85,6 +56,7 @@ input[type="radio"]:checked + span:before {
   border-top: 2px solid black;
   margin: 0;
 }
+
 .credits {
   color: white;
   text-align: center;

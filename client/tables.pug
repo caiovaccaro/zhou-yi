@@ -3,8 +3,9 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='assets/reset.css')
+    link(rel='stylesheet', href='assets/general.css')
     link(rel='stylesheet', href='assets/tables.css')
-    link(href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css')  
+    link(href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css')
 
   body
     - function capitalizeFirstLetter(string) {
@@ -16,7 +17,7 @@ html
         thead
           tr
             - var name = capitalizeFirstLetter(tableName)
-            th= name
+            th.gradient= name
         tbody
           - var baseDatabase = db[tableName]
           each premise in baseDatabase
@@ -29,7 +30,7 @@ html
         thead
           tr
             - var name = capitalizeFirstLetter(tableName)
-            th= name
+            th.gradient= name
         tbody
           - var comparisonDatabase = db[tableName]
           each comparison in comparisonDatabase
@@ -46,11 +47,11 @@ html
             tr
             - var comparisonDatabase = db[tableName]
             each comparisonTitle in comparisonDatabase
-              th= comparisonTitle
+              th.gradient= comparisonTitle
           tbody
             tr
-              - var comparisonResultsDatabase = db[parentTableName + 'Comparison'][tableName]
-              each comparisonResults in comparisonResultsDatabase
+              each comparisonTitle in comparisonDatabase
+                - var comparisonResults = db[parentTableName + 'Comparison'][tableName][comparisonTitle]
                 td
-                  - var comparison = comparisonResults.join(' ou ')
+                  - var comparison = comparisonResults instanceof Array ? comparisonResults.join(' ou ') : comparisonResults
                   =comparison

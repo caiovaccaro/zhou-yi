@@ -3,6 +3,7 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='assets/reset.css')
+    link(rel='stylesheet', href='assets/general.css')
     link(rel='stylesheet', href='assets/main.css')
     link(href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css')
 
@@ -11,21 +12,21 @@ html
       fieldset
         h3 Quais são os maiores desafios do seu projeto?
         each challenge, index in db.challenges
-          label.pure-checkbox
+          label.pure-checkbox.gradient
             input(type='checkbox', name="challenges", value=index)
             span= challenge
 
       fieldset
         h3 Qual a duração do projeto (tempo de desenvolvimento + tempo que ficará online)?
         each time, index in db.time
-          label.pure-radio
+          label.pure-radio.gradient
             input(type='radio', name="time", value=index)
             span= time
 
       fieldset
         h3 Com quais das seguintes questões sua equipe mais se preocupa?
         each premise, index in db.premises
-          label.pure-checkbox
+          label.pure-checkbox.gradient
             input(type='checkbox', name="premises", value=index)
             span= premise
 
