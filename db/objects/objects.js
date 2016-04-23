@@ -1,12 +1,17 @@
 'use strict'
 
-module.exports = {
-  bases: ['premises', 'challenges', 'time'],
-  comparisons: ['concepts', 'apis', 'frameworks'],
-  premises: require('./premises'),
-  challenges: require('./challenges'),
-  time: require('./time'),
-  concepts: require('./concepts'),
-  frameworks: require('./frameworks'),
-  apis: require('./apis')
+const bases = ['premises', 'challenges', 'time'],
+  comparisons = ['concepts', 'apis', 'frameworks'],
+  objects = {}
+
+bases.forEach(dynamicRequire)
+comparisons.forEach(dynamicRequire)
+
+function dynamicRequire(file) {
+  objects[file] = require('./' + file)
 }
+
+objects.bases = bases
+objects.comparisons = comparisons
+
+module.exports = objects
