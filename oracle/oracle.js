@@ -1,15 +1,16 @@
 'use strict'
 
-const _ = require('lodash')
+const _ = require('lodash'),
+  dbBase = require('../db/objects/objects')
 
 module.exports = {
   whatIsBestForMultiples: whatIsBestForMultiples
 }
 
 function whatIsBestForMultiples(request, db) {
-  let results,
-    params = [],
-    response = {}
+  let params = [],
+    response = {},
+    results
 
   for (let param in request) {
     params.push({ param: param, index: request[param] })
@@ -17,11 +18,11 @@ function whatIsBestForMultiples(request, db) {
 
   results = whatIsBestForAll(params, db)
 
-  return {
-    "Concepts": combineMultiples("Concepts", results),
-    "APIs": combineMultiples("APIs", results),
-    "Frameworks": combineMultiples("Frameworks", results)
-  }
+  iterateComparisons((comparison, capitalComparison) => {
+    response[capitalComparison] = combineMultiples(capitalComparison, results)
+  })
+
+  return response
 }
 
 function combineMultiples(param, results) {
@@ -38,51 +39,61 @@ function combineOne(results) {
 }
 
 function whatIsBestForAll(params, db) {
-  let bestConceptsFor = [],
-    bestApisFor = [],
-    bestFrameworksFor = []
+  let response = {},
+    paramsLength = params.length,
+    i
 
-    for(let i = 0; i < params.length; i++) {
-      let bestFor = params[i].index instanceof Array ?
-                      whatIsBestForMultipleIndexes(params[i].param, params[i].index, db) :
-                      whatIsBestFor(params[i].param, params[i].index, db)
+  for(i = 0; i < paramsLength; i++) {
+    let bestFor = params[i].index instanceof Array ?
+                    whatIsBestForMultipleIndexes(params[i].param, params[i].index, db) :
+                    whatIsBestFor(params[i].param, params[i].index, db)
 
-      bestConceptsFor.push(bestFor.Concepts)
-      bestApisFor.push(bestFor.APIs)
-      bestFrameworksFor.push(bestFor.Frameworks)
-    }
+    iterateComparisons((comparison, capitalComparison) => {
+      response[capitalComparison] = response[capitalComparison] || []
+      response[capitalComparison].push(bestFor[capitalComparison])
+    })
+  }
 
-    return {
-      "Concepts": combineOne(bestConceptsFor),
-      "APIs": combineOne(bestApisFor),
-      "Frameworks": combineOne(bestFrameworksFor)
-    }
+  iterateComparisons((comparison, capitalComparison) => {
+    response[capitalComparison] = combineOne(response[capitalComparison])
+  })
+
+  return response
 }
 
 function whatIsBestForMultipleIndexes(param, indexes, db) {
-  let bestConceptsFor = [],
-    bestApisFor = [],
-    bestFrameworksFor = []
+  let response = {},
+    indexesLength = indexes.length,
+    i
 
-  for(let i = 0; i < indexes.length; i++) {
+  for(i = 0; i < indexesLength; i++) {
     let bestFor = whatIsBestFor(param, indexes[i], db)
 
-    bestConceptsFor.push(bestFor.Concepts)
-    bestApisFor.push(bestFor.APIs)
-    bestFrameworksFor.push(bestFor.Frameworks)
+    iterateComparisons((comparison, capitalComparison) => {
+      response[capitalComparison] = response[capitalComparison] || []
+      response[capitalComparison].push(bestFor[capitalComparison])
+    })
   }
 
-  return {
-    "Concepts": bestConceptsFor,
-    "APIs": bestApisFor,
-    "Frameworks": bestFrameworksFor
-  }
+  return response
 }
 
 function whatIsBestFor(param, index, db) {
-  return {
-    "Concepts": index ? db.conceptsComparison[param][db[param][index]] : [],
-    "APIs": index ? db.apisComparison[param][db[param][index]] : [],
-    "Frameworks": index ? db.frameworksComparison[param][db[param][index]] : []
-  }
+  let response = {}
+
+  iterateComparisons((comparison, capitalComparison) => {
+    response[capitalComparison] = index ? db[comparison + "Comparison"][param][db[param][index]] : []
+  })
+
+  return response
+}
+
+function iterateComparisons(callback) {
+  dbBase.comparisons.forEach((comparison) => {
+    callback(comparison, capitalizeFirstLetter(comparison))
+  })
+}
+
+function capitalizeFirstLetter(string) {
+   return string.charAt(0).toUpperCase() + string.slice(1);
 }

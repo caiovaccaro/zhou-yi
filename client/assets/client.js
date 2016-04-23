@@ -33,10 +33,10 @@
     }
 
     conceptLine = response.Concepts.length > 1 ? moreThanOneConceptLine : oneConceptLine;
-    apisLine = response.APIs.length > 1 ? moreThanOneApiLine : oneApiLine;
+    apisLine = response.Apis.length > 1 ? moreThanOneApiLine : oneApiLine;
     frameworksLine = response.Frameworks.length > 1 ? moreThanOneFrameworkLine : oneFrameworkLine;
     finalLine = conceptLine + response.Concepts.join(itemsSeparator) +
-                  linesSeparator + apisLine + response.APIs.join(itemsSeparator) +
+                  linesSeparator + apisLine + response.Apis.join(itemsSeparator) +
                   linesSeparator + frameworksLine + response.Frameworks.join(itemsSeparator) +
                   linesSeparator;
 
