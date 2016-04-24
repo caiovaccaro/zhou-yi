@@ -17,6 +17,7 @@ After getting those tables in place for my presentation, a friend (thank you!) -
 Having said that, I really think that if more people join and contribute to the comparison tables we might get somewhere just a tiny bit useful, that is why I want to tell you how to collaborate. **Everything in this application is flexible: bases of comparison, what is going to be compared and comparisons themselves.**
 
 ## How to contribute
+- Fork this repo
 
 #### How to run locally
 - Clone
@@ -139,6 +140,9 @@ setRelationship([['premises', 0], ['apis', 0]], comparisonBase)
 ]
 ```
 - That is it! Check a [full example](https://github.com/caiovaccaro/zhou-yi/blob/master/db/comparisons/apisComparison.js)
+
+#### Then what?
+Create a pull request from your fork, it will be merged and deployed!
 
 ### How it works?
 This section will grow with time. Basically speaking, and intersection of all the relationships is made based on the user selection.
