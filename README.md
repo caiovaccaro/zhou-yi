@@ -1,5 +1,5 @@
 # zhou-yi
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/a43b8d4c2d004a468dd401dcf5315d66)](https://www.codacy.com/app/caiovaccaromora/zhou-yi)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/a43b8d4c2d004a468dd401dcf5315d66)](https://www.codacy.com/app/caiovaccaromora/zhou-yi) [![license](https://img.shields.io/github/license/caiovaccaro/zhou-yi.svg?maxAge=2592000)]()
 
 http://zhou-yi.herokuapp.com/
 
