@@ -8,7 +8,7 @@ http://zhou-yi.herokuapp.com/
 "The I Ching, also known as the Classic of Changes or Book of Changes in English, is an ancient divination text and the oldest of the Chinese classics. Possessing a history of more than two and a half millennia of commentary and interpretation, the I Ching is an influential text read throughout the world, providing inspiration to the worlds of religion, psychoanalysis, business, literature, and art."
 
 ## What is this?
-The name, referring to I-Ching is just a joke. The material to this repo came when [I](http://caiovaccaro.com) was preparing for one of my latest presentations (Client-side Development in 2016 -- link to come). One of the presentation's goals is to **compare 3 main things that concerns us (Web Developers) today: Programming Paradigms or Concepts; APIs formats and Frameworks.**
+The name, referring to I-Ching is just a joke. The material to this repo came when [I](http://caiovaccaro.com) was preparing for one of my latest presentations ([Client-side Development in 2016](http://www.slideshare.net/Hugeinc/clientside-development-2016)). One of the presentation's goals is to **compare 3 main things that concerns us (Web Developers) today: Programming Paradigms or Concepts; APIs formats and Frameworks.**
 
 Little by little, I started drawing some comparison tables, which now [you can see here](http://zhou-yi.herokuapp.com/tables).
 
