@@ -1,9 +1,9 @@
 'use strict'
 
 module.exports = [
-  "Sincronia de dados entre servidor e cliente/cache",
+  "Synchronize data between client and server/cache",
   "Performance",
-  "Fácil de desenvolver/dar manutenção",
-  "Concorrência e Paralelismo",
+  "Easy to develop/maintain",
+  "Concurrency and Parallelism",
   "Offline"
 ]

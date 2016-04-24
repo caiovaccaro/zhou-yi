@@ -1,6 +1,6 @@
 'use strict'
 
 module.exports = [
-  "Curto prazo",
-  "Longo prazo"
+  "Short term",
+  "Long term"
 ]

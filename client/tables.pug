@@ -11,7 +11,8 @@ html
     - function capitalizeFirstLetter(string) {
     -   return string.charAt(0).toUpperCase() + string.slice(1);
     - }
-    h3 Bases de comparação
+
+    h3 Bases of comparison
     each tableName in db.bases
       table
         thead
@@ -24,7 +25,7 @@ html
             tr
               td= premise
 
-    h3 O que vai ser comparado
+    h3 What is going to be compared
     each tableName in db.comparisons
       table
         thead
@@ -53,5 +54,5 @@ html
               each comparisonTitle in comparisonDatabase
                 - var comparisonResults = db[parentTableName + 'Comparison'][tableName][comparisonTitle]
                 td
-                  - var comparison = comparisonResults instanceof Array ? comparisonResults.join(' ou ') : comparisonResults
+                  - var comparison = comparisonResults instanceof Array ? comparisonResults.join(' or ') : comparisonResults
                   =comparison

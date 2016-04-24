@@ -1,8 +1,8 @@
 'use strict'
 
 module.exports = [
-  "Não ter que aprender algo demasiadamente específico",
-  "Partes reutilizáveis e modulares",
-  "Sem muita necessidade de refatoração",
-  "Boa experiência para o usuário (rápido, transições, feedback, fácil de usar)"
+  "Not necessary to learn something too complex",
+  "Modular and reusable parts",
+  "Without too much need of refactoring",
+  "Good user experience (fast, transitions, feedback, easy to use)"
 ]

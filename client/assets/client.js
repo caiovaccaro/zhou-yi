@@ -4,17 +4,13 @@
     responseElement = document.getElementById('response'),
     inputsLength = inputs.length,
     allInputsEmpty = true,
-    defaultLine = 'Marque suas dificuldades e verei como posso ajudar...',
-    errorLine = 'Parece que não inventaram ainda isso aí...',
-    moreThanOneConceptLine = 'Você pode usar um desses <b>conceitos</b>:<br>',
-    oneConceptLine = 'O melhor <b>conceito</b> nesse caso é:<br>',
-    moreThanOneApiLine = 'Você pode usar um desses tipos de <b>API</b>:<br>',
-    oneApiLine = 'O melhor tipo de <b>API</b> nesse caso é:<br>',
-    moreThanOneFrameworkLine = 'Você pode usar um desses tipos de <b>frameworks</b>:<br>',
-    oneFrameworkLine = 'O melhor tipo de <b>framework</b> nesse caso é:<br>',
-    itemsSeparator = ' ou ',
+    defaultLine = 'Check what troubles you!',
+    errorLine = 'It seems no one invented such a thing...',
+    moreThanOneLine = 'You can use one of these <b>#{things}</b>:<br>',
+    oneLine = 'The best <b>#{thing}</b> in this case is:<br>',
+    itemsSeparator = ' or ',
     linesSeparator = '.<br><br>',
-    i, conceptLine, apisLine, frameworksLine, finalLine;
+    i, finalLine;
 
   init();
 
@@ -27,24 +23,29 @@
   }
 
   function gotResponseFromServer(response) {
+    var lines = []
+
     if(noData(response) && (allInputsEmpty || !allInputsEmpty)) {
       responseElement.innerHTML = allInputsEmpty ? defaultLine : errorLine;
       return false;
     }
 
-    conceptLine = response.Concepts.length > 1 ? moreThanOneConceptLine : oneConceptLine;
-    apisLine = response.Apis.length > 1 ? moreThanOneApiLine : oneApiLine;
-    frameworksLine = response.Frameworks.length > 1 ? moreThanOneFrameworkLine : oneFrameworkLine;
-    finalLine = conceptLine + response.Concepts.join(itemsSeparator) +
-                  linesSeparator + apisLine + response.Apis.join(itemsSeparator) +
-                  linesSeparator + frameworksLine + response.Frameworks.join(itemsSeparator) +
-                  linesSeparator;
+    comparisons.forEach(function(comparison) {
+      var finalItemLine,
+        line = response[capitalizeFirstLetter(comparison)].length > 1
+                  ? moreThanOneLine.replace('#{things}', comparison)
+                  : oneLine.replace('#{thing}', comparison.slice(0, -1));
 
+      finalItemLine = line + response[capitalizeFirstLetter(comparison)].join(itemsSeparator);
+      lines.push(finalItemLine);
+    });
+
+    finalLine = lines.join(linesSeparator);
     responseElement.innerHTML = finalLine;
   }
 
   function noData(response) {
-    return typeof response.Concepts === 'undefined';
+    return !Object.keys(response).length;
   }
 
   function iterateInputs(callback) {
@@ -70,5 +71,9 @@
 
   function makeRequest(request) {
     socket.emit('change', request)
+  }
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 })();
