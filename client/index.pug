@@ -1,5 +1,6 @@
 html
   head
+    title Zhou-yi | Web development is so complex nowadays that maybe a divination can help.
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='assets/reset.css')
@@ -7,6 +8,15 @@ html
     link(rel='stylesheet', href='assets/main.css')
     link(href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css')
   body
+    header
+      .left
+        a(href='/')
+          h1.logo zhou-yi
+            span } web dev divination wanted?
+
+      .right
+        iframe(src="https://ghbtns.com/github-btn.html?user=caiovaccaro&repo=zhou-yi&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px")
+
     form.pure-form.pure-form-stacked
       each comparisonBase, baseIndex in db.bases
         fieldset
@@ -17,7 +27,7 @@ html
 
           each item, index in database
             - var type = db.basesInputTypes[baseIndex]
-            
+
             label.pure-checkbox.gradient
               input(type=type, name=comparisonBase, value=index)
               span= item

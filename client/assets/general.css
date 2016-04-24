@@ -14,6 +14,39 @@ body {
   padding: 0 0 300px 0;
 }
 
+.logo {
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.logo span {
+  font-weight: 100;
+  padding-left: 10px;
+  font-size: 18px;
+  position: relative;
+  top: -2px;
+  opacity: 0.3;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+header {
+  clear: both;
+  padding: 30px 30px 80px;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+}
+
 form, table, fieldset {
   padding: 0;
   margin: 0;
