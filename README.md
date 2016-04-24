@@ -1,4 +1,5 @@
 # zhou-yi
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/a43b8d4c2d004a468dd401dcf5315d66)](https://www.codacy.com/app/caiovaccaromora/zhou-yi)
 
 http://zhou-yi.herokuapp.com/
 
@@ -16,6 +17,13 @@ After getting those tables in place for my presentation, a friend (thank you!) -
 Having said that, I really think that if more people join and contribute to the comparison tables we might get somewhere just a tiny bit useful, that is why I want to tell you how to collaborate. **Everything in this application is flexible: bases of comparison, what is going to be compared and comparisons themselves.**
 
 ## How to contribute
+
+#### How to run locally
+- Clone
+- ```npm i```
+- ```node server.js```
+- Open localhost:3000
+
 The main thing you need to know is that:
 - Given bases of comparison
 - Objects of comparison
