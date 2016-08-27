@@ -20,6 +20,6 @@ http.listen(port, () => { console.log('Up on ' + port) })
 
 io.on('connection', (socket) => {
   socket.on('change', (request) => {
-    io.emit('response', oracle.whatIsBestForMultiples(request, db))
+    socket.emit('response', oracle.whatIsBestForMultiples(request, db))
   })
 })
